@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 
 from ..log import Logger, log_exception
 from ..paths import Path
-from ..conf import conf
 
 if TYPE_CHECKING:
     from ..client import Client
@@ -19,6 +18,7 @@ async def load_extensions(client: "Client") -> None:
             
             try:
                 await client.load_extension(f"apps.bot.extensions.{extension}")
+                logger.info(f"Loaded extension {extension}")
             
             except Exception as e:
                 logger.error(f"Failed to load extension {extension}")
