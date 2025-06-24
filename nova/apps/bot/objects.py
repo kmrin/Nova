@@ -13,11 +13,11 @@ class Response(Enum):
 
 @dataclass
 class Localisation:
-    system: dict[str, str | list[str]]
-    commands: dict[str, str | list[str]]
-    responses: dict[str, str | list[str]]
+    system: dict[str, str | int | list[str | int]]
+    commands: dict[str, str | int | list[str | int]]
+    responses: dict[str, str | int | list[str | int]]
     
-    def all(self) -> dict[str, str | list[str]]:
+    def all(self) -> dict[str, str | int | list[str | int]]:
         return self.system | self.commands | self.responses
 
 

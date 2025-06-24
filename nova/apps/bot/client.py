@@ -2,7 +2,7 @@ import os
 import sys
 
 from asyncio.exceptions import CancelledError
-from discord import LoginFailure
+from discord import LoginFailure, User
 from discord.ext.commands import Bot
 from secrets import token_urlsafe
 
@@ -25,6 +25,7 @@ class Client(Bot):
             help_command=None
         )
         
+        self.user: User
         self.tree.on_error = on_error
         self.tts_clients: dict[int, TTSClient] = {}
         self.music_clients: dict[int, object] = {}  # TODO: Add music client type

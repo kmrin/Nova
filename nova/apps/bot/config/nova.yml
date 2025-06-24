@@ -1,4 +1,4 @@
-version: 0.1.0 - Indev
+version: v0.1.0 - Indev
 debug: true
 forward_discord_logs: false
 always_sync: false
