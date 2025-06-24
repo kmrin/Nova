@@ -1,0 +1,64 @@
+services:
+  django:
+    container_name: Nova-Django
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./nova:/app
+      - nova_instance_data:/var/lib/nova
+    ports:
+      - ${DJANGO_PORT}:8000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      lavalink:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - nova-network
+  
+  postgres:
+    container_name: Nova-DB
+    image: postgres:16
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    restart: unless-stopped
+    volumes:
+      - nova_postgres_data:/var/lib/postgresql/data
+    networks:
+      - nova-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  lavalink:
+    container_name: Nova-Lavalink
+    image: ghcr.io/lavalink-devs/lavalink:4
+    restart: unless-stopped
+    env_file:
+      - .env
+    expose:
+      - ${LAVALINK_PORT}
+    networks:
+      - nova-network
+    volumes:
+      - ./nova/lavalink/plugins:/opt/Lavalink/plugins
+      - ./nova/lavalink/config.yml:/opt/Lavalink/application.yml
+      - nova_instance_data:/var/lib/nova
+
+volumes:
+  nova_instance_data:
+    name: nova_instance_data
+  nova_postgres_data:
+    name: nova_postgres_data
+
+networks:
+  nova-network:
+    driver: bridge

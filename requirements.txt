@@ -1,0 +1,21 @@
+python-dotenv
+discord
+pydantic
+strenum
+wavelink
+pyyaml
+gtts
+translate
+langdetect
+google-generativeai
+celery
+psycopg2 ; sys_platform == "win32"
+psycopg2-binary ; sys_platform != "win32"
+django
+django-stubs
+django-environ
+django-cors-headers
+django-rest-framework
+pynacl
+yt-dlp
+psutil

@@ -1,0 +1,45 @@
+# System strings
+system:
+  # Statuses
+  statuses:
+    - " ✌️ Listening to your commands"
+    - " 🥰 At your service"
+  
+  maintenance_status: " ⚠️  Maintenance mode"
+  
+  # States
+  state_yes: "Yes"
+  state_no: "No"
+  state_on: "On"
+  state_off: "Off"
+
+  # Ui
+  ui_button_yes: " ✅  Yes"
+  ui_button_no: " ❌  No"
+  ui_button_confirm: " ✅  Confirm"
+  ui_button_cancel: " ❌  Cancel"
+  ui_button_close: " ❌  Close"
+  ui_button_back: " ⬅️  Back"
+  ui_button_next: " ➡️  Next"
+
+# Command strings; Names, descriptions, arguments, options, etc.
+commands:
+  dummy: "bla bla bla"
+
+# Response strings; Error messages, responses to user interactions, etc.
+responses:
+  # Errors
+  error_not_in_guild: " ❌  You must be in a server to run this command"
+  error_not_owner: " ❌  You must be an owner to run this command"
+  error_not_admin: " ❌  You must be an admin to run this command"
+  error_blacklisted: " ❌  You're blacklisted from running commands in this server"
+  error_interaction_timeout: " ❌  The interaction timed out"
+  error_owners_empty: " ❌  There are no owners registered"
+  error_unknown: " ❌  An unknown error occurred"
+  error_invalid_arguments: " ❌  Invalid arguments: {arguments}"
+  error_timeout: " 🕓  This interaction timed out"
+
+  # Tree errors
+  tree_missing_perms: " ❌  You don't have the necessary permissions to run this command: {perms}"
+  tree_bot_missing_perms: " ❌  I don't have the necessary permissions to run this command: {perms}"
+  tree_transformer_error: " ❌  An error occurred while converting a command argument"

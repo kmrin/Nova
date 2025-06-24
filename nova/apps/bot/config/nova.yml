@@ -1,0 +1,53 @@
+version: 0.1.0 - Indev
+debug: true
+forward_discord_logs: false
+always_sync: false
+
+status:
+  language: en-GB
+  interval: 5  # Minutes
+  log: false
+
+spam-filter:
+  enabled: true
+  time_window: 5  # Minutes
+  max_per_window: 3
+
+nsfw-extensions:
+  danbooru:
+    enabled: false
+    api_key: null
+  rule34:
+    enabled: false
+    api_key: null
+  e621:
+    enabled: false
+    api_key: null
+
+lavalink:
+  host: Nova-Lavalink
+  port: 20001
+  password: novabot
+
+tasks:
+  - status_loop
+
+internal-extensions:
+  - event_handler
+
+intents:
+  dm_messages: true
+  dm_typing: true
+  guild_messages: true
+  guild_typing: true
+  guilds: true
+  integrations: true
+  voice_states: true
+  webhooks: true
+  members: true
+  message_content: true
+  moderation: true
+  presences: true
+  messages: true
+  typing: true
+  bans: true
