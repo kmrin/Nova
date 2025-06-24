@@ -13,17 +13,6 @@ spam-filter:
   time_window: 5  # Minutes
   max_per_window: 3
 
-nsfw-extensions:
-  danbooru:
-    enabled: false
-    api_key: null
-  rule34:
-    enabled: false
-    api_key: null
-  e621:
-    enabled: false
-    api_key: null
-
 lavalink:
   host: Nova-Lavalink
   port: 20001

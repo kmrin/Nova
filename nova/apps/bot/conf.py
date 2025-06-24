@@ -21,27 +21,6 @@ class _SpamFilter(BaseModel):
     max_per_window: int
 
 
-class _Danbooru(BaseModel):
-    enabled: bool
-    api_key: Optional[str] = None
-
-
-class _Rule34(BaseModel):
-    enabled: bool
-    api_key: Optional[str] = None
-
-
-class _E621(BaseModel):
-    enabled: bool
-    api_key: Optional[str] = None
-
-
-class _NSFWExtensions(BaseModel):
-    danbooru: _Danbooru
-    rule34: _Rule34
-    e621: _E621
-
-
 class _Lavalink(BaseModel):
     host: str
     port: int
@@ -55,7 +34,6 @@ class Config(BaseModel):
     always_sync: bool
     status: _Status
     spam_filter: _SpamFilter = Field(alias="spam-filter")
-    nsfw_extensions: _NSFWExtensions = Field(alias="nsfw-extensions")
     lavalink: _Lavalink
     testing_servers: Optional[list[int]] = Field(alias="testing-servers", default_factory=list)
     tasks: list[str]
