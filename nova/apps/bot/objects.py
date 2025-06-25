@@ -15,10 +15,9 @@ class Response(Enum):
 class Localisation:
     system: dict[str, str | int | list[str | int]]
     commands: dict[str, str | int | list[str | int]]
-    responses: dict[str, str | int | list[str | int]]
     
     def all(self) -> dict[str, str | int | list[str | int]]:
-        return self.system | self.commands | self.responses
+        return self.system | self.commands
 
 
 @dataclass
