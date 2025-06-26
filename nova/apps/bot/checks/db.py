@@ -24,7 +24,9 @@ class DBManager:
     async def populate_database(self) -> None:
         logger.info("Populating database")
 
-        async for guild in self.client.fetch_guilds():
+        async for guild in self.client.fetch_guilds(limit=None):
+            full_guild = await self.client.fetch_guild(guild.id)
+            
             try:
                 db_guild = await Guilds.objects.aget(guild_id=guild.id)
                 
@@ -46,7 +48,9 @@ class DBManager:
                 
                 logger.info(f"Added missing: {guild.name} ({guild.id})")
             
-            async for member in guild.fetch_members(limit=None):
+            async for member in full_guild.fetch_members(limit=None):
+                full_member = await full_guild.fetch_member(member.id)
+                
                 try:
                     db_member = await Users.objects.aget(user_id=member.id)
                     
@@ -72,6 +76,18 @@ class DBManager:
                 
                 if not await db_guild.users.filter(user_id=db_member.user_id).aexists():
                     await db_guild.users.aadd(db_member)
+
+                is_admin = (
+                    full_member.guild_permissions.administrator or
+                    full_member.guild_permissions.manage_guild or
+                    full_member.id == full_guild.owner_id
+                )
+                
+                if is_admin:
+                    if not await db_guild.admins.filter(user_id=db_member.user_id).aexists():
+                        logger.info(f"'{db_member.user_name}' ({db_member.user_id}) registered as an admin of " \
+                                    f"'{guild.name}' ({guild.id})")
+                        await db_guild.admins.aadd(db_member)
     
     @log_errors(logger)
     async def purge_database(self) -> None:
@@ -84,6 +100,18 @@ class DBManager:
             if guild.guild_id not in current_guild_ids:
                 logger.info(f"Guild '{guild.guild_name}' ({guild.guild_id}) no longer exists or bot is no longer in it")
                 await guild.adelete()
+            else:
+                bot_guild = await self.client.fetch_guild(guild.guild_id)
+                
+                async for db_admin in guild.admins.all():
+                    member = await bot_guild.fetch_member(db_admin.user_id)
+                    
+                    if not member or not (
+                        member.guild_permissions.administrator or member.guild_permissions.manage_guild
+                    ):
+                        logger.info(f"'{db_admin.user_name}' ({db_admin.user_id}) unregistered as an admin of \
+                                      '{guild.guild_name}' ({guild.guild_id})")
+                        await guild.admins.aremove(db_admin)
         
         async for user in Users.objects.all():
             if user.user_id not in current_user_ids:
