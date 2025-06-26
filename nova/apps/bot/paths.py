@@ -5,6 +5,7 @@ from .helpers import get_os_path
 
 class Path(StrEnum):
     ASSETS = get_os_path("assets")
+    DOCS = get_os_path("assets/docs")
     CONFIG = get_os_path("config/nova.yml")
     EXTENSIONS = get_os_path("extensions")
     LOCALE = get_os_path("locale")

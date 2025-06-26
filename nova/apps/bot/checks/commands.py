@@ -35,7 +35,7 @@ def is_admin() -> Callable[[T], T]:
         if not interaction.guild:
             raise UserNotInGuild(interaction)
         
-        member = await get_member(interaction.client, interaction.guild, interaction.user.id)
+        member = await get_member(interaction.client, interaction.guild, interaction.user.id)  # type: ignore
         
         if not member:
             logger.warning(f"Couldn't fetch member obj for user '{interaction.user.id}'")
