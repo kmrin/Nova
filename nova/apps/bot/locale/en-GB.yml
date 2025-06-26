@@ -22,12 +22,6 @@ system:
   ui_button_back: " ⬅️  Back"
   ui_button_next: " ➡️  Next"
 
-# Command strings; Names, descriptions, arguments, options, etc.
-commands:
-  dummy: "bla bla bla"
-
-# Response strings; Error messages, responses to user interactions, etc.
-responses:
   # Errors
   error_not_in_guild: " ❌  You must be in a server to run this command"
   error_not_owner: " ❌  You must be an owner to run this command"
@@ -43,3 +37,106 @@ responses:
   tree_missing_perms: " ❌  You don't have the necessary permissions to run this command: {perms}"
   tree_bot_missing_perms: " ❌  I don't have the necessary permissions to run this command: {perms}"
   tree_transformer_error: " ❌  An error occurred while converting a command argument"
+
+# Command strings; Names, descriptions, arguments, options, etc.
+commands:
+  # ----
+  # Core
+  # ----
+
+  # /info
+  core_info_name: "info"
+  core_info_desc: "Shows information about me"
+  core_info_title: "NovaBot | {version}"
+  core_info_created:
+    - "📅 Created at"
+    - 1750780492
+  core_info_developer:
+    - "🖥️ Developer"
+    - "**Rin** (km.rin)"
+  core_info_testers:
+    - "🧪 Testers"
+    - "**tba**\n**tba**"
+  core_info_py: "🐍 Python"
+  core_info_dc: "🤖 Discord.py"
+  core_info_requested: "Requested by: {user}"
+
+  # /help
+  core_help_name: "help"
+  core_help_desc: "Paginated information about what I can do"
+  core_help_not_found: " ❌  Help file not found, please report this to the bot owner"
+  core_help_title: "## ❓  Nova help"
+
+  # /ping
+  core_ping_name: "ping"
+  core_ping_desc: "Pong!"
+  core_ping_response: " 🏓  **Pong!**\nLatency to discord: `{ping}ms`"
+
+  # /sync
+  core_sync_name: "sync"
+  core_sync_desc: "Syncs the command tree to the current guild or globally"
+  core_sync_full_name: "full"
+  core_sync_full_desc: "Sync globally"
+  core_sync_success: " ✅  Command tree sync requested, please wait a few minutes"
+
+  # /owner
+  core_owner_gp_name: "owner"
+  core_owner_gp_desc: "Owner manipulation commands"
+  core_owner_user_name: "user"
+
+  # /owner me
+  core_owner_me_name: "me"
+  core_owner_me_desc: "Adds you to the owners list"
+  core_owner_me_token_name: "token"
+  core_owner_me_token_desc: "The token provided during intialization"
+  core_owner_me_already_owner: " ❌  You are already an owner"
+  core_owner_me_invalid_token: " ❌  Invalid token"
+  core_owner_me_failed: " ❌  Failed to add you to the owners list, acreate returned None"
+  core_owner_me_success: " ✅  You are now an owner"
+
+  # /owner add
+  core_owner_add_name: "add"
+  core_owner_add_desc: "Adds a user to the owners list"
+  core_owner_add_user_desc: "The user to add to the owners list"
+  core_owner_add_already_owner: " ❌  The user is already an owner"
+  core_owner_add_failed: " ❌  Failed to add the user to the owners list, acreate returned None"
+  core_owner_add_success: " ✅  The user is now an owner"
+
+  # /owner remove
+  core_owner_remove_name: "remove"
+  core_owner_remove_desc: "Removes a user from the owners list"
+  core_owner_remove_user_desc: "The user to remove from the owners list"
+  core_owner_remove_not_owner: " ❌  The user is not an owner"
+  core_owner_remove_success: " ✅  The user is no longer an owner"
+
+  # /extension
+  core_extension_gp_name: "extension"
+  core_extension_gp_desc: "Extension manipulation commands"
+  core_extension_not_found: " ❌  Extension not found"
+  core_extension_internal: " ❌  Internal extension, please reload it instead"
+  core_extension_no_entry: " ❌  No entrypoint found in extension, make sure the extension has a setup method"
+  core_extension_not_loaded: " ❌  Extension not loaded"
+  core_extension_ext_name: "extension"
+  core_extension_ext_desc: "The extension to manipulate"
+
+  # /extension list
+  core_extension_list_name: "list"
+  core_extension_list_desc: "Lists all loaded and unloaded extensions"
+  core_extension_list_header: " 📃 Extensions"
+  core_extension_list_helper: "🟢 Loaded\n🔴 Unloaded"
+  
+  # /extension load
+  core_extension_load_name: "load"
+  core_extension_load_desc: "Loads an extension"
+  core_extension_load_success: " ✅  Extension loaded"
+  core_extension_load_already_loaded: " ❌  Extension already loaded"
+
+  # /extension unload
+  core_extension_unload_name: "unload"
+  core_extension_unload_desc: "Unloads an extension"
+  core_extension_unload_success: " ✅  Extension unloaded"
+  
+  # /extension reload
+  core_extension_reload_name: "reload"
+  core_extension_reload_desc: "Reloads an extension"
+  core_extension_reload_success: " ✅  Extension reloaded"

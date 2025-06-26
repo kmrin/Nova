@@ -34,4 +34,4 @@ class Translator(DCTranslator):
         if (locale == Locale.american_english) or (locale.value not in SUPPORTED_LOCALES):
             locale = Locale.british_english
         
-        return get_localised_string(locale, msg, default=msg)
+        return get_localised_string(locale.value, msg, default=msg)

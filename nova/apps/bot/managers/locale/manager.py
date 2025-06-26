@@ -37,7 +37,7 @@ def check_sections(locale_file: str, locale_data: dict) -> bool:
 
 
 def get_locale(locale: str | Locale) -> Optional[Localisation]:
-    base_locale_path = os.path.join(Path.LOCALE, f"{locale}.yml")
+    base_locale_path = os.path.join(Path.LOCALE, f"{locale.value if isinstance(locale, Locale) else locale}.yml")
     
     if not os.path.exists(base_locale_path):
         logger.error(f"Locale file at '{base_locale_path}' doesn't exist")
@@ -61,18 +61,15 @@ def get_interaction_locale(interaction: Interaction) -> str:
     
     if locale == Locale.american_english:
         locale = Locale.british_english
-    
+
     return locale.value
 
 
-def get_localised_string(locale: str | Locale, key: str, default: str = "", *args, **kwargs) -> str:
-    if isinstance(locale, tuple):
-        locale = locale[0]
-    
-    text_data = get_locale(locale)
+def get_localised_string(locale: str | Locale, key: str, default: str = "", *args, **kwargs) -> str:    
+    text_data = get_locale(locale.value if isinstance(locale, Locale) else locale)
     
     if not text_data:
-        logger.error(f"Locale code '{locale}' not present in locale list, defaulting to 'en_GB'")
+        logger.error(f"Locale code '{locale}' not present in locale list, defaulting to 'en-GB'")
         text_data = get_locale(Locale.british_english.value)
         
         if not text_data:
@@ -90,17 +87,20 @@ def get_localised_string(locale: str | Locale, key: str, default: str = "", *arg
         logger.error(f"Key '{key}' is not a string in locale data, returning default")
         return default
     
-    return value.format(*args, **kwargs)
+    if isinstance(value, str):
+        return value.format(*args, **kwargs)
+    
+    return value
 
 
-def get_localised_list(locale: str | Locale, key: str, default: list[str] = []) -> list[str]:
+def get_localised_list(locale: str | Locale, key: str, default: list[str | int] = []) -> list[str | int]:
     if isinstance(locale, tuple):
         locale = locale[0]
     
-    text_data = get_locale(locale)
+    text_data = get_locale(locale.value if isinstance(locale, Locale) else locale)
     
     if not text_data:
-        logger.error(f"Locale code '{locale}' not present in locale list, defaulting to 'en_GB'")
+        logger.error(f"Locale code '{locale}' not present in locale list, defaulting to 'en-GB'")
         text_data = get_locale(Locale.british_english.value)
         
         if not text_data:
