@@ -51,13 +51,16 @@ def is_admin() -> Callable[[T], T]:
 def not_blacklisted() -> Callable[[T], T]:
     async def predicate(interaction: Interaction) -> bool:
         if not interaction.guild:
-            raise UserNotInGuild(interaction)
+            logger.debug(f"Not blacklisted called in DM, skipping check")
+            return True
         
-        guild = await Guilds.objects.filter(guild_id=interaction.guild.id).aget()
+        guild = await Guilds.objects.filter(guild_id=interaction.guild.id).afirst()
         
         if not guild:
             logger.warning(f"Couldn't fetch guild database entry for guild '{interaction.guild.id}'")
-            raise UserNotInGuild(interaction)
+            logger.warning(f"User is probably in a guild that I'm not in, skipping check")
+            
+            return True
         
         if await guild.blacklist.filter(user_id=interaction.user.id).aexists():
             raise UserBlacklisted(interaction)
